@@ -21,6 +21,7 @@ export default {
       required: true,
     },
   },
+  emits: ['me-clicked'],
   methods: {
     meClicked() {
         if(!this.active)

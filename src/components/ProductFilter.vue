@@ -13,9 +13,9 @@ export default {
   components: {
     FilterButton,
   },
+  emits: ['product-fetched','product-fetching'],
   data() {
     return {
-      products: [],
       active:{
         'all': true,
         'feature': false,
@@ -46,13 +46,16 @@ export default {
       this.active[key] = true
     },
     async fetchProducts(qryParams) {
+      this.$emit('product-fetching');
       let url = "https://mixcart.com.tr/api/material";
       if (qryParams != null) url += `?${qryParams}`;
       const res = await fetch(url);
       const data = await res.json();
-      this.products = data["data"];
-      console.log(this.products.length);
+      this.$emit('product-fetched', data["data"]);
     },
+  },
+  mounted(){
+    this.fetchProducts()
   },
 };
 </script>
