@@ -1,25 +1,31 @@
 <template>
   <button
+    class="bg-transparent hover:bg-blue-500 font-semibold hover:text-white py-2 px-4 rounded m-1"
+    :class="{'bg-blue-500 text-white': active, 'text-blue-700': !active}"
     @click="meClicked"
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
   >
-  {{ text }}
-</button>
+    {{ text }}
+  </button>
 </template>
 
 <script>
 export default {
   name: "FilterButton",
   props: {
-      text: {
+    text: {
       type: String,
-      required: true
+      required: true,
+    },
+    active: {
+      type: Boolean,
+      required: true,
     },
   },
-  methods:{
-      meClicked(){
-          this.$emit('me-clicked')
-      }
-  }
+  methods: {
+    meClicked() {
+        if(!this.active)
+        this.$emit("me-clicked");
+    },
+  },
 };
 </script>
