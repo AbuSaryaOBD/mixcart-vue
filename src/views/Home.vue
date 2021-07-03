@@ -1,6 +1,9 @@
 <template>
-  <ProductFilter @product-fetched="refreshList" @product-fetching="setFetching"/>
-  <ProductList :products="products" :fetching="fetching"/>
+  <ProductFilter
+    @product-fetched="refreshList"
+    @product-fetching="setFetching"
+  />
+  <ProductList :products="products" :fetching="fetching" />
 </template>
 
 <script>
@@ -14,20 +17,20 @@ export default {
     ProductFilter,
     ProductList,
   },
-  data(){
+  data() {
     return {
-      products:[],
+      products: [],
       fetching: false,
-    }
+    };
   },
-  methods:{
-    refreshList(productsList){
-      this.fetching = false
-      this.products = productsList
+  methods: {
+    refreshList(productsList) {
+      this.fetching = false;
+      this.products = productsList;
     },
-    setFetching(){
-      this.fetching = true
-    }
+    setFetching() {
+      this.fetching = true;
+    },
   },
 };
 </script>

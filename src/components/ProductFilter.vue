@@ -1,8 +1,20 @@
 <template>
-  <FilterButton text="All" @me-clicked="allProducts" :active="active['all']"/>
-  <FilterButton text="Feature" @me-clicked="featureProducts" :active="active['feature']"/>
-  <FilterButton text="Offer" @me-clicked="offersProducts" :active="active['offer']"/>
-  <FilterButton text="Most Sell" @me-clicked="mostSellProducts" :active="active['sell']"/>
+  <FilterButton text="All" @me-clicked="allProducts" :active="active['all']" />
+  <FilterButton
+    text="Feature"
+    @me-clicked="featureProducts"
+    :active="active['feature']"
+  />
+  <FilterButton
+    text="Offer"
+    @me-clicked="offersProducts"
+    :active="active['offer']"
+  />
+  <FilterButton
+    text="Most Sell"
+    @me-clicked="mostSellProducts"
+    :active="active['sell']"
+  />
 </template>
 
 <script>
@@ -13,49 +25,49 @@ export default {
   components: {
     FilterButton,
   },
-  emits: ['product-fetched','product-fetching'],
+  emits: ["product-fetched", "product-fetching"],
   data() {
     return {
-      active:{
-        'all': true,
-        'feature': false,
-        'offer': false,
-        'sell': false,
+      active: {
+        all: true,
+        feature: false,
+        offer: false,
+        sell: false,
       },
     };
   },
   methods: {
     allProducts() {
-      this.setActive('all')
+      this.setActive("all");
       this.fetchProducts();
     },
     featureProducts() {
-      this.setActive('feature')
+      this.setActive("feature");
       this.fetchProducts("is_featured=true");
     },
     offersProducts() {
-      this.setActive('offer')
+      this.setActive("offer");
       this.fetchProducts("offersOnly=true");
     },
     mostSellProducts() {
-      this.setActive('sell')
+      this.setActive("sell");
       this.fetchProducts("order_by_sell_count=true");
     },
-    setActive(key){
-      Object.keys(this.active).forEach(v => this.active[v] = false)
-      this.active[key] = true
+    setActive(key) {
+      Object.keys(this.active).forEach((v) => (this.active[v] = false));
+      this.active[key] = true;
     },
     async fetchProducts(qryParams) {
-      this.$emit('product-fetching');
+      this.$emit("product-fetching");
       let url = "https://mixcart.com.tr/api/material";
       if (qryParams != null) url += `?${qryParams}`;
       const res = await fetch(url);
       const data = await res.json();
-      this.$emit('product-fetched', data["data"]);
+      this.$emit("product-fetched", data["data"]);
     },
   },
-  mounted(){
-    this.fetchProducts()
+  mounted() {
+    this.fetchProducts();
   },
 };
 </script>
