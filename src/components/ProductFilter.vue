@@ -1,21 +1,12 @@
 <template>
   <div class="text-center mt-2">
-    <FilterButton text="All" @me-clicked="allProducts" :active="active['all']" />
     <FilterButton
-      text="Feature"
-      @me-clicked="featureProducts"
-      :active="active['feature']"
+      v-for="button in buttons" :key="button.id"
+      :text="button.text"
+      :active="active == button.id" 
+      @me-clicked="buttonClicked(button.id,button.param)" 
     />
-    <FilterButton
-      text="Offer"
-      @me-clicked="offersProducts"
-      :active="active['offer']"
-    />
-    <FilterButton
-      text="Most Sell"
-      @me-clicked="mostSellProducts"
-      :active="active['sell']"
-    />
+    
     <ProductSearch @search-term="searchProducts"/>
   </div>
 </template>
@@ -33,42 +24,27 @@ export default {
   emits: ["product-fetched", "product-fetching"],
   data() {
     return {
-      active: {
-        all: true,
-        feature: false,
-        offer: false,
-        sell: false,
+      active: 'all',
+      buttons:{
+        all:{ id: 'all', text: 'all', param: ''},
+        feature:{ id: 'feature', text: 'feature', param: 'is_featured=true'},
+        offer:{ id: 'offer', text: 'offer', param: 'offersOnly=true'},
+        sell:{ id: 'sell', text: 'sell', param: 'order_by_sell_count=true'},
       },
+      filterParam: '',
     };
   },
   methods: {
-    allProducts() {
-      this.setActive("all");
-      this.fetchProducts();
-    },
-    featureProducts() {
-      this.setActive("feature");
-      this.fetchProducts("is_featured=true");
-    },
-    offersProducts() {
-      this.setActive("offer");
-      this.fetchProducts("offersOnly=true");
-    },
-    mostSellProducts() {
-      this.setActive("sell");
-      this.fetchProducts("order_by_sell_count=true");
+    buttonClicked(key, param){
+      this.active = key
+      this.filterParam = param
+      this.fetchProducts(this.filterParam)
     },
     searchProducts(term) {
-      this.setActive("all");
-      console.log(term)
       if(term != '')
-        this.fetchProducts(`name=%${term}%`);
+        this.fetchProducts(`${this.filterParam}&name=%${term}%`);
       else
-        this.fetchProducts();
-    },
-    setActive(key) {
-      Object.keys(this.active).forEach((v) => (this.active[v] = false));
-      this.active[key] = true;
+        this.fetchProducts(this.filterParam);
     },
     async fetchProducts(qryParams) {
       this.$emit("product-fetching");

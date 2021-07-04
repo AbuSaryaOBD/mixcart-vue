@@ -3,7 +3,7 @@
     @product-fetched="refreshList"
     @product-fetching="setFetching"
   />
-  <ProductList :products="products" :fetching="fetching" />
+  <ProductList :products="products" :fetching="fetching" @fetch-new="fetchNew"/>
 </template>
 
 <script>
@@ -21,15 +21,22 @@ export default {
     return {
       products: [],
       fetching: false,
+      fetchStart: 0,
     };
   },
   methods: {
     refreshList(productsList) {
       this.fetching = false;
-      this.products = productsList;
+      if(this.fetchStart === 0)
+        this.products = productsList;
+      else
+        this.products.push(productsList)
     },
     setFetching() {
       this.fetching = true;
+    },
+    fetchNew(){
+      // this.fetchStart += 10
     },
   },
 };

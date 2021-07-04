@@ -4,5 +4,6 @@ import router from "./router";
 import "./assets/tailwind.css";
 import "./assets/tailwind.css";
 
+import VueObserveVisibility from 'vue3-observe-visibility'
 
-createApp(App).use(router).mount("#app");
+createApp(App).use(router).use(VueObserveVisibility).mount("#app");

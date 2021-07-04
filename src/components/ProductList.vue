@@ -8,6 +8,13 @@
         :product="product"
         />
     </div>
+    <div 
+      v-if="products.length" 
+      v-observe-visibility="{
+        callback: visibilityChanged,
+        throttle: 300,
+      }"
+    ></div>
   </div>
 </template>
 
@@ -31,5 +38,12 @@ export default {
       required: true,
     },
   },
+  emits:['fetch-new'],
+  methods:{
+    visibilityChanged (isVisible, entry) {
+      if(!isVisible) { return }
+      this.$emit('fetch-new')
+    }
+  }
 };
 </script>
