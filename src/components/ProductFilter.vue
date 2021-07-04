@@ -26,10 +26,10 @@ export default {
     return {
       active: 'all',
       buttons:{
-        all:{ id: 'all', text: 'all', param: ''},
-        feature:{ id: 'feature', text: 'feature', param: 'is_featured=true'},
-        offer:{ id: 'offer', text: 'offer', param: 'offersOnly=true'},
-        sell:{ id: 'sell', text: 'sell', param: 'order_by_sell_count=true'},
+        all:{ id: 'all', text: 'الكل', param: ''},
+        feature:{ id: 'feature', text: 'مميز', param: 'is_featured=true'},
+        offer:{ id: 'offer', text: 'العروض', param: 'offersOnly=true'},
+        sell:{ id: 'sell', text: 'الأكثر مبيعاً', param: 'order_by_sell_count=true'},
       },
       filterParam: '',
     };
