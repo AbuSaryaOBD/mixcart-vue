@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-      <div class="flex flex-wrap -mb-4 relative">
+      <div class="flex flex-wrap mb-4 relative justify-center">
         <FetchingIndicator v-if="fetching"/>
         <ProductCard
         v-for="product in products"
