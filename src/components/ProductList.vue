@@ -1,20 +1,20 @@
 <template>
   <div class="container mx-auto">
-      <div class="flex flex-wrap mb-4 relative justify-center">
-        <FetchingIndicator v-if="fetching"/>
-        <ProductCard
+    <div class="flex flex-wrap mb-4 relative justify-center">
+      <FetchingIndicator v-if="fetching"/>
+      <ProductCard
         v-for="product in products"
         :key="product.id"
         :product="product"
-        />
+      />
     </div>
-    <div 
+    <!-- <div 
       v-if="products.length" 
       v-observe-visibility="{
         callback: visibilityChanged,
         throttle: 300,
       }"
-    ></div>
+    ></div> -->
   </div>
 </template>
 
@@ -38,12 +38,5 @@ export default {
       required: true,
     },
   },
-  emits:['fetch-new'],
-  methods:{
-    visibilityChanged (isVisible, entry) {
-      if(!isVisible) { return }
-      this.$emit('fetch-new')
-    }
-  }
 };
 </script>

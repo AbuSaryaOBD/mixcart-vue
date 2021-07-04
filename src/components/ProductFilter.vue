@@ -51,9 +51,10 @@ export default {
       let url = "https://mixcart.com.tr/api/material";
       if (qryParams != null) url += `?${qryParams}`;
       console.log(url);
-      const res = await fetch(url);
-      const data = await res.json();
-      this.$emit("product-fetched", data["data"]);
+      axios.get(url)
+        .then(res => {
+          this.$emit("product-fetched", res.data.data)
+        })
     },
   },
   mounted() {
