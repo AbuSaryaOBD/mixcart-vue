@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import ProductCard from "@/components/ProductCard";
-import FetchingIndicator from "@/components/FetchingIndicator";
+import ProductCard from "@/components/ProductList/ProductCard";
+import FetchingIndicator from "@/components/ProductList/FetchingIndicator";
 
 export default {
   name: "ProductList",

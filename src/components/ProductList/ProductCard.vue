@@ -1,5 +1,6 @@
 <template>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg m-2">
+  <router-link :to="{ name: 'ShowProduct', params: { id: product.id }}">
+    <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2">
     <img
       class="w-full h-60 bg-gray-400"
       :class="animatePulse"
@@ -18,6 +19,7 @@
       <div class="text-lg mb-1 overflow-hidden h-8">{{ product.summary }}</div>
     </div>
   </div>
+  </router-link>
 </template>
 
 <script>

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import FilterButton from "@/components/FilterButton.vue";
-import ProductSearch from "@/components/ProductSearch.vue";
+import FilterButton from "@/components/ProductList/FilterButton.vue";
+import ProductSearch from "@/components/ProductList/ProductSearch.vue";
 
 export default {
   name: "ProductFilter",
