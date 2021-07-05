@@ -48,7 +48,7 @@ export default {
     },
     async fetchProducts(qryParams) {
       this.$emit("product-fetching");
-      let url = "https://mixcart.com.tr/api/material";
+      let url = process.env.VUE_APP_API_URL;
       if (qryParams != null) url += `?${qryParams}`;
       console.log(url);
       axios.get(url)
