@@ -2,7 +2,7 @@
     <Carousel :options="carouselOps">
         <div v-for="similar in similarProducts" :key="similar.id" class="slide" >
             <router-link :to="{ name: 'ShowProduct', params: { id: similar.id }}">
-                <div class="w-48 rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2">
+                <div class="w-48 mx-auto rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2">
                     <img
                         class="w-full h-28 bg-gray-400"
                         :src="`https://mixcart.com.tr/storage/${similar.first_image.image}`"
@@ -41,11 +41,36 @@ export default {
         return {
             carouselOps:{
                 rtl: true,
-                slidesToShow: 5,
                 autoplay: true,
                 dots: false,
                 infinite: true,
                 navButtons: false,
+                responsive: [
+                    {
+                        breakpoint: 500,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 750,
+                        settings: {
+                            slidesToShow: 3
+                        }
+                    },
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 4
+                        }
+                    },
+                    {
+                        breakpoint: 1280,
+                        settings: {
+                            slidesToShow: 5
+                        }
+                    },
+                ]
             }
         }
     }
