@@ -4,9 +4,7 @@
       <img
         class="w-full h-60 bg-gray-400 object-cover"
         :class="animatePulse"
-        :src="`https://mixcart.com.tr/storage/${product.images[0].image}`"
-        @load="imageLoaded"
-        alt="Sunset in the mountains"
+        v-lazy="{src: lazyOptions.src, lifecycle: lazyOptions.lifecycle(disAnimate)}"
       />
       <div class="px-6 py-4">
         <div class="font-bold text-xl mb-2 overflow-hidden h-8">{{ product.name }}</div>
@@ -24,6 +22,7 @@
 
 <script>
 import StarRating from 'vue-star-rating'
+import { reactive } from 'vue'
 
 export default {
   name: "ProductCard",
@@ -37,13 +36,29 @@ export default {
     },
   },
   data(){
-    return {
-      animatePulse: ' animate-pulse'
+    return{
+      animatePulse: 'animate-pulse'
     }
   },
   methods:{
-    imageLoaded(){
+    disAnimate(){
       this.animatePulse = ''
+    }
+  },
+  setup(props) {
+    const lazyOptions = reactive({
+      src: `https://mixcart.com.tr/storage/${props.product.images[0].image}`,
+      lifecycle:(animation) => {
+        return {
+          loaded: () => {
+            console.log('image loaded')
+            animation()
+          }
+        }
+      }
+    })
+    return {
+      lazyOptions,
     }
   }
 };

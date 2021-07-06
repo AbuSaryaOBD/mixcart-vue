@@ -5,7 +5,7 @@
                 <div class="w-48 mx-auto rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2">
                     <img
                         class="w-full h-28 bg-gray-400"
-                        :src="`https://mixcart.com.tr/storage/${similar.first_image.image}`"
+                        v-lazy="`https://mixcart.com.tr/storage/${similar.first_image.image}`"
                     />
                     <div class="px-6 py-4">
                         <div class="font-bold text-lg mb-2 overflow-hidden h-7">{{ similar.name }}</div>
@@ -79,9 +79,7 @@ export default {
 
 <style>
 .agile--rtl .agile__track,
-.agile--rtl .agile__slides,
-.agile--rtl .agile__actions,
-.agile--rtl .agile__dots {
+.agile--rtl .agile__slides {
     flex-direction: row;
 }
 </style>

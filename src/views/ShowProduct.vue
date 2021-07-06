@@ -33,8 +33,7 @@ export default {
   },
   methods:{
     fetchProduct(id){
-      let url = process.env.VUE_APP_API_URL + '/' + id
-      axios.get(url)
+      axios.get(`/material/${id}`)
         .then(res => {
           this.product = res.data.data
         })

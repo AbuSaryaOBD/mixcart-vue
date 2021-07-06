@@ -6,7 +6,7 @@
             :class="[ index == 0 ? 'translate-y-0' : 'translate-y-full' ]"
             :id="`layer-${image.id}`"
         >
-            <img :src="`https://mixcart.com.tr/storage/${image.image}`" class="object-cover w-full h-full"/>
+            <img v-lazy="`https://mixcart.com.tr/storage/${image.image}`" class="object-cover w-full h-full"/>
         </div>
     </div>
     
@@ -15,7 +15,7 @@
             class="thumbnail"
             @click="thumbnailClicked(image.id)"
         >
-            <img :src="`https://mixcart.com.tr/storage/${image.image}`" class="object-cover w-full h-full"/>
+            <img v-lazy="`https://mixcart.com.tr/storage/${image.image}`" class="object-cover w-full h-full"/>
         </div>
     </div>
 </template>
