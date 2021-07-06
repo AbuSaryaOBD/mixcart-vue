@@ -4,7 +4,7 @@
       v-for="button in buttons" :key="button.id"
       :text="button.text"
       :active="active == button.id" 
-      @me-clicked="buttonClicked(button.id,button.param)" 
+      @active-me="activeButton(button.id,button.param)" 
     />
     
     <ProductSearch @search-term="searchProducts"/>
@@ -35,7 +35,7 @@ export default {
     };
   },
   methods: {
-    buttonClicked(key, param){
+    activeButton(key, param){
       this.active = key
       this.filterParam = param
       this.fetchProducts(this.filterParam)

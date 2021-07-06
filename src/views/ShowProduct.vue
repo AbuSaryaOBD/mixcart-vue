@@ -1,10 +1,13 @@
 <template>
   <div class="container mx-auto">
-    <ProductImages v-if="product?.images" :images="product.images" />
-    <br>
-    <ProductMeta v-if="product" :meta="product"  />
-    <br>
-    <SimilarProducts v-if="product?.likeMaterials" :similarProducts="product.likeMaterials" />
+    <FetchingIndicator v-if="!product" />
+    <div v-else>
+      <ProductImages :images="product.images" />
+      <br>
+      <ProductMeta :meta="product"  />
+      <br>
+      <SimilarProducts :similarProducts="product.likeMaterials" />
+    </div>
   </div>
 </template>
 
@@ -12,6 +15,7 @@
 import ProductImages from '@/components/ShowProduct/ProductImages'
 import ProductMeta from '@/components/ShowProduct/ProductMeta'
 import SimilarProducts from '@/components/ShowProduct/SimilarProducts'
+import FetchingIndicator from '@/components/Widgets/FetchingIndicator'
 
 export default {
   name: "ShowProduct",
@@ -19,6 +23,7 @@ export default {
     ProductImages,
     ProductMeta,
     SimilarProducts,
+    FetchingIndicator,
   },
   data(){
       return {
@@ -26,12 +31,25 @@ export default {
           product: null,
       }
   },
+  methods:{
+    fetchProduct(id){
+      let url = process.env.VUE_APP_API_URL + '/' + id
+      axios.get(url)
+        .then(res => {
+          this.product = res.data.data
+        })
+    }
+  },
+  watch: {
+    $route(to, from) {
+      if(to.params.id){
+        this.product = null
+        this.fetchProduct(to.params.id)
+      }
+    }
+  },
   created(){
-    let url = process.env.VUE_APP_API_URL + '/' + this.id
-    axios.get(url)
-      .then(res => {
-        this.product = res.data.data
-      })
-  }
+    this.fetchProduct(this.id)
+  },
 };
 </script>

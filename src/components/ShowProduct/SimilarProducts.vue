@@ -1,6 +1,6 @@
 <template>
     <Carousel :options="carouselOps">
-        <div v-for="similar in similarProducts" :key="similar.id" class="slide" >
+        <div v-for="similar in similarProducts" :key="similar.id" class="slide">
             <router-link :to="{ name: 'ShowProduct', params: { id: similar.id }}">
                 <div class="w-48 mx-auto rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2">
                     <img

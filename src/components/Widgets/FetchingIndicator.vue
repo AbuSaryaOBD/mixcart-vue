@@ -1,13 +1,30 @@
 <template>
-    <div wire:loading class="absolute h-full w-full bg-gray-700 opacity-50 flex flex-col items-center"></div>
-	<div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-28 w-28">
-</div>
-
+	<div
+		:class="`loader ease-linear rounded-full border-gray-200 
+			border-${sizes[size-1].thickness} border-t-${sizes[size-1].thickness} 
+			h-${sizes[size-1].dimension} w-${sizes[size-1].dimension}`"
+	>
+	</div>
 </template>
 
 <script>
 export default {
   name: "FetchingIndicator",
+  props:{
+	  size:{
+		  type: Number,
+		  default: 3,
+	  }
+  },
+  data(){
+	  return{
+		sizes:[
+			{'thickness' : '2', 'dimension': '10'},
+			{'thickness' : '4', 'dimension': '16'},
+			{'thickness' : '8', 'dimension': '24'},
+		]
+	  }
+  },
 };
 </script>
 

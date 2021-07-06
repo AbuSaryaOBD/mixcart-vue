@@ -1,17 +1,13 @@
 <template>
   <button
     class="
-      bg-transparent
-      hover:bg-blue-500
-      font-semibold
-      hover:text-white
-      py-2
-      px-4
+      bg-transparent hover:bg-blue-500
+      font-semibold hover:text-white
+      py-2 px-4 m-1
       rounded
-      m-1
     "
     :class="{ 'bg-blue-500 text-white': active, 'text-blue-700': !active }"
-    @click="meClicked"
+    @click="activeMe"
   >
     {{ text }}
   </button>
@@ -30,10 +26,10 @@ export default {
       required: true,
     },
   },
-  emits: ["me-clicked"],
+  emits: ["active-me"],
   methods: {
-    meClicked() {
-      if (!this.active) this.$emit("me-clicked");
+    activeMe() {
+      if (!this.active) this.$emit("active-me");
     },
   },
 };
