@@ -76,3 +76,12 @@ export default {
     }
 }
 </script>
+
+<style>
+.agile--rtl .agile__track,
+.agile--rtl .agile__slides,
+.agile--rtl .agile__actions,
+.agile--rtl .agile__dots {
+    flex-direction: row;
+}
+</style>
