@@ -31,9 +31,6 @@ export default {
 <style scoped>
 .loader {
 	border-top-color: #f3b634;
-    position: fixed;
-    top: 50%;
-    left: 50%;
 	-webkit-animation: spinner 1.5s linear infinite;
 	animation: spinner 1.5s linear infinite;
 }

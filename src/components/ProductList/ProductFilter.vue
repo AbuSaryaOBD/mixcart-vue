@@ -21,40 +21,58 @@ export default {
     FilterButton,
     ProductSearch,
   },
+  props:{
+    offset:{
+      type: Number,
+      required: true,
+    }
+  },
   emits: ["product-fetched", "product-fetching"],
   data() {
     return {
-      active: 'all',
       buttons:{
         all:{ id: 'all', text: 'الكل', param: ''},
         feature:{ id: 'feature', text: 'مميز', param: 'is_featured'},
         offer:{ id: 'offer', text: 'العروض', param: 'offersOnly'},
         sell:{ id: 'sell', text: 'الأكثر مبيعاً', param: 'order_by_sell_count'},
       },
-      filterParam: {},
+      active: 'all',
+      filter: '',
+      name: '',
     };
   },
   methods: {
     activeButton(key, param){
       this.active = key
-      this.filterParam = { [param]: 'ture'}
-      this.fetchProducts(this.filterParam)
+      this.filter = param
+      this.fetchProducts()
     },
     searchProducts(term) {
-      this.filterParam['name'] = term
-      this.fetchProducts(this.filterParam);
+      this.name = term
+      this.fetchProducts();
     },
-    async fetchProducts(qryParams) {
+    async fetchProducts() {
       this.$emit("product-fetching");
-      // let url = process.env.VUE_APP_API_URL;
+      let qryParams = {
+        'offset': this.offset,
+        'name': this.name,
+      }
+      if(this.filter) qryParams[this.filter] = true
       axios.get('/material', { params: qryParams })
         .then(res => {
-          this.$emit("product-fetched", res.data.data)
+          let data = res.data.data
+          this.$emit("product-fetched", data)
         })
     },
   },
-  mounted() {
+  created() {
     this.fetchProducts({});
+  },
+  watch:{
+    offset(newVal, oldVal){
+      if(newVal > oldVal)
+        this.fetchProducts()
+    }
   },
 };
 </script>

@@ -14,7 +14,7 @@
           :read-only="true" :show-rating="false"
           :star-size="30"
         />
-        <div class="text-lg mb-1 overflow-hidden h-8">{{ product.summary }}</div>
+        <div class="text-lg mb-1 overflow-hidden h-7">{{ product.summary }}</div>
       </div>
     </div>
   </router-link>
@@ -51,7 +51,6 @@ export default {
       lifecycle:(animation) => {
         return {
           loaded: () => {
-            console.log('image loaded')
             animation()
           }
         }

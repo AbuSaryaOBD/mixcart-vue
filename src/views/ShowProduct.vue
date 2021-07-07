@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <FetchingIndicator v-if="!product" />
+    <OverlayFetching v-if="!product" />
     <div v-else>
       <ProductImages :images="product.images" />
       <br>
@@ -15,7 +15,7 @@
 import ProductImages from '@/components/ShowProduct/ProductImages'
 import ProductMeta from '@/components/ShowProduct/ProductMeta'
 import SimilarProducts from '@/components/ShowProduct/SimilarProducts'
-import FetchingIndicator from '@/components/Widgets/FetchingIndicator'
+import OverlayFetching from '@/components/Widgets/Indicators/OverlayFetching'
 
 export default {
   name: "ShowProduct",
@@ -23,7 +23,7 @@ export default {
     ProductImages,
     ProductMeta,
     SimilarProducts,
-    FetchingIndicator,
+    OverlayFetching,
   },
   data(){
       return {
