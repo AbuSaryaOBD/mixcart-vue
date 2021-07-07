@@ -1,55 +1,65 @@
 <template>
-  <div class="flex flex-wrap relative justify-center w-11/12 mx-auto">
-    <OverlayFetching v-if="fetching=='filter'" />
-    <BottomIndicator v-if="fetching=='new'" />
-    
-    <EmptyList v-if="products.length == 0 && !fetching" />
-    <ProductCard
-      v-else
-      v-for="product in products"
-      :key="product.id"
-      :product="product"
-    />
+  <div class="w-11/12 mx-auto relative">
+    <OverlayFetching v-if="status == 'loading'" />
+    <BottomIndicator v-if="status == 'loading-more'" />
+    <EmptyList v-if="products.length == 0 && status == 'loaded'"/>
+
+    <div v-if="products.length > 0"  class="flex flex-wrap justify-center">
+      <ProductCard
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+      />
+      <div 
+        v-if="products.length" 
+        v-observe-visibility="loadMore"
+      ></div>
+    </div>
+    <EndOfList v-if="completed && products.length > 0" />
   </div>
-  <div 
-    v-if="products.length" 
-    v-observe-visibility="{
-      callback: visibilityChanged,
-      throttle: 300,
-    }"
-  ></div>
 </template>
 
 <script>
-import ProductCard from "@/components/ProductList/ProductCard";
-import EmptyList from "@/components/ProductList/EmptyList";
 import OverlayFetching from "@/components/Widgets/Indicators/OverlayFetching";
 import BottomIndicator from "@/components/Widgets/Indicators/BottomIndicator";
+import EmptyList from "./widgets/EmptyList"
+import ProductCard from "./widgets/ProductCard"
+import EndOfList from "./widgets/EndOfList"
+import methodMixin from "./mixins/ProductListMethod"
 
 export default {
   name: "ProductList",
   components: {
-    ProductCard,
-    EmptyList,
     OverlayFetching,
     BottomIndicator,
+    EmptyList,
+    ProductCard,
+    EndOfList,
   },
   props: {
-    products: {
-      type: Array,
-      required: true,
-    },
-    fetching: {
-      type: String,
-      required: true,
-    },
+    params:{
+      type: Object,
+      required: true
+    }
   },
-  emits: ['get-new-products'],
-  methods:{
-    visibilityChanged(isVisible){
-      if(!isVisible) { return }
-      if(this.products.length < 10) { return }
-      this.$emit('get-new-products')
+  data(){
+    return {
+      products: [],
+      status: 'loading',
+      completed: false,
+    }
+  },
+  mixins: [methodMixin],
+  created(){
+    this.fetchProducts(false)
+  },
+  watch:{
+    params: {
+      deep: true,
+      handler: function () {
+        this.completed = false
+        this.fetchProducts(false)
+      }
     }
   }
 };

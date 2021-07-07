@@ -18,10 +18,10 @@
 </template>
 
 <script>
-import throttle from 'lodash/throttle'
+import _ from 'lodash'
 
 export default {
-    name: 'ProductSearch',
+    name: 'SearchField',
     data(){
         return {
             term: ''
@@ -31,9 +31,9 @@ export default {
     watch:{
         term: {
             deep: true,
-            handler: throttle(function() {
+            handler: _.debounce(function() {
                 this.$emit('search-term', this.term)
-            }, 1000),
+            }, 500),
         },
     }
 }

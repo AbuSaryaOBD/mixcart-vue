@@ -2,10 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import "./assets/tailwind.css";
-import "./assets/tailwind.css";
-
-import VueObserveVisibility from 'vue3-observe-visibility';
 import VueLazyLoad from 'vue3-lazyload'
+import VueObserveVisibility from 'vue3-observe-visibility'
 
 const axios = require('axios').default;
 window.axios = axios.create({
@@ -14,5 +12,6 @@ window.axios = axios.create({
 })
 
 createApp(App)
-    .use(router).use(VueObserveVisibility).use(VueLazyLoad)
+    .use(router).use(VueLazyLoad)
+    .use(VueObserveVisibility)
     .mount("#app");
