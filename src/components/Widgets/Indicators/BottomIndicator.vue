@@ -17,7 +17,7 @@ export default {
 .fixed-bottom-bar {
     position: fixed;
     bottom: 0;
-    background-color: white;
+    background-color: #f3ede5;
     width: 100%;
 }
 </style>

@@ -2,7 +2,7 @@
     <Carousel :options="carouselOps">
         <div v-for="similar in similarProducts" :key="similar.id" class="slide">
             <router-link :to="{ name: 'ShowProduct', params: { id: similar.id }}">
-                <div class="w-48 mx-auto rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2">
+                <div class="w-48 mx-auto rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2 bg-white">
                     <img
                         class="w-full h-28 bg-gray-400 object-cover"
                         v-lazy="`https://mixcart.com.tr/storage/${similar.first_image.image}`"

@@ -1,6 +1,6 @@
 <template>
   <router-link :to="{ name: 'ShowProduct', params: { id: product.id }}">
-    <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2">
+    <div class="max-w-sm rounded overflow-hidden shadow-md hover:shadow-xl cursor-pointer m-2 bg-white">
       <img
         class="w-full h-60 bg-gray-400 object-cover"
         :class="animatePulse"
