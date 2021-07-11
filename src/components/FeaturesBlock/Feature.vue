@@ -21,13 +21,22 @@ export default {
             hasBorder: false,
         }
     },
-    mounted(){
-        if (this.index > 0) {
-            const myTop = this.$el.getBoundingClientRect().top
-            const sibling = document.getElementById(`feature-${this.index - 1}`)
-            const prevTop = sibling.getBoundingClientRect().top
-            this.hasBorder = myTop === prevTop
+    methods:{
+        resizeHandler() {
+            if (this.index > 0) {
+                const myTop = this.$el.getBoundingClientRect().top
+                const sibling = document.getElementById(`feature-${this.index - 1}`)
+                const prevTop = sibling.getBoundingClientRect().top
+                this.hasBorder = myTop === prevTop
+            }
         }
-    }
+    },
+    mounted(){
+        this.resizeHandler()
+        window.addEventListener("resize", this.resizeHandler);
+    },
+    destroyed() {
+    window.removeEventListener("resize", this.resizeHandler);
+    },
 }
 </script>
